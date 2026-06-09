@@ -161,6 +161,16 @@
     "obs": "SOLICITO CONVENIO",
     "usuario": "DANIEL MONGE",
     "fecha": "2026-06-09T19:16:14.925Z",
-    "estado": "pending"
+    "estado": "approved",
+    "criterios": {
+      "c1": "ok",
+      "c2": "ok",
+      "c3": "pending",
+      "c4": "ok"
+    },
+    "comentarios": "CONVENIO AUTORIZADO",
+    "supervisor": "DANIEL MONGE",
+    "fecha_resp": "2026-06-09T19:17:19.365Z",
+    "sha": "0b4ddf7b"
   }
 ]
