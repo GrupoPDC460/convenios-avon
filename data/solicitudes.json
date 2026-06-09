@@ -143,5 +143,24 @@
     "supervisor": "Sofia",
     "fecha_resp": "2026-06-09T16:19:46.169Z",
     "sha": "1617bea9"
+  },
+  {
+    "corr": "0826-222-12313-6",
+    "pais": "SV",
+    "zona": "222",
+    "cod": "12313",
+    "nombre": "DDDDD",
+    "camp": "8",
+    "motivo": "Desempleo",
+    "email_gdr": "daniellopez.proyeccion@grupopdc.com",
+    "gdr": "HENRY",
+    "monto_ult": 20000,
+    "extension": 455,
+    "monto_conv": 455,
+    "monto_pago": 12000,
+    "obs": "SOLICITO CONVENIO",
+    "usuario": "DANIEL MONGE",
+    "fecha": "2026-06-09T19:16:14.925Z",
+    "estado": "pending"
   }
 ]
