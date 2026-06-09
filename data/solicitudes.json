@@ -132,6 +132,16 @@
     "obs": "",
     "usuario": "Sofia",
     "fecha": "2026-06-09T16:15:23.942Z",
-    "estado": "pending"
+    "estado": "approved",
+    "criterios": {
+      "c1": "ok",
+      "c2": "ok",
+      "c3": "ok",
+      "c4": "ok"
+    },
+    "comentarios": "Convenio Autorizado",
+    "supervisor": "Sofia",
+    "fecha_resp": "2026-06-09T16:19:46.169Z",
+    "sha": "1617bea9"
   }
 ]
