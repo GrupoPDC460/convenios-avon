@@ -45,6 +45,16 @@
     "obs": "DADA",
     "usuario": "PDC2026",
     "fecha": "2026-06-09T14:12:30.013Z",
-    "estado": "pending"
+    "estado": "approved",
+    "criterios": {
+      "c1": "ok",
+      "c2": "ok",
+      "c3": "ok",
+      "c4": "ok"
+    },
+    "comentarios": "Autorizado",
+    "supervisor": "PDC2026",
+    "fecha_resp": "2026-06-09T14:13:44.765Z",
+    "sha": "dd70f7b4"
   }
 ]
