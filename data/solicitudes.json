@@ -74,6 +74,16 @@
     "obs": "FDFSD",
     "usuario": "daniel",
     "fecha": "2026-06-09T14:33:27.749Z",
-    "estado": "pending"
+    "estado": "approved",
+    "criterios": {
+      "c1": "ok",
+      "c2": "ok",
+      "c3": "ok",
+      "c4": "ok"
+    },
+    "comentarios": "FFFF",
+    "supervisor": "daniel",
+    "fecha_resp": "2026-06-09T14:33:53.176Z",
+    "sha": "dbb972a3"
   }
 ]
