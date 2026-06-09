@@ -103,6 +103,16 @@
     "obs": "JHJJ",
     "usuario": "DANIEL",
     "fecha": "2026-06-09T14:51:37.693Z",
-    "estado": "pending"
+    "estado": "approved",
+    "criterios": {
+      "c1": "ok",
+      "c2": "ok",
+      "c3": "ok",
+      "c4": "ok"
+    },
+    "comentarios": "OMOMO",
+    "supervisor": "DANIEL",
+    "fecha_resp": "2026-06-09T14:52:39.720Z",
+    "sha": "722f7762"
   }
 ]
