@@ -190,6 +190,16 @@
     "obs": "dasdasda",
     "usuario": "DANIEL MONGE",
     "fecha": "2026-06-09T23:11:59.609Z",
-    "estado": "pending"
+    "estado": "approved",
+    "criterios": {
+      "c1": "ok",
+      "c2": "ok",
+      "c3": "ok",
+      "c4": "ok"
+    },
+    "comentarios": "Sas",
+    "supervisor": "Oliver Santos",
+    "fecha_resp": "2026-06-09T23:13:25.416Z",
+    "sha": "7c51da1b"
   }
 ]
