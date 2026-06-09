@@ -114,5 +114,24 @@
     "supervisor": "DANIEL",
     "fecha_resp": "2026-06-09T14:52:39.720Z",
     "sha": "722f7762"
+  },
+  {
+    "corr": "0926-616-190691-5",
+    "pais": "PA",
+    "zona": "616",
+    "cod": "190691",
+    "nombre": "Rosibeth Franco",
+    "camp": "9",
+    "motivo": "Salud",
+    "email_gdr": "Yohana.henry@grupopdc.com",
+    "gdr": "Yohana Henry ",
+    "monto_ult": 55.95,
+    "extension": 22,
+    "monto_conv": 22,
+    "monto_pago": 33.57,
+    "obs": "",
+    "usuario": "Sofia",
+    "fecha": "2026-06-09T16:15:23.942Z",
+    "estado": "pending"
   }
 ]
