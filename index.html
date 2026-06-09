@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Convenios de Pago · Avon CARD</title>
+<link rel="icon" href="https://grupopdc460.github.io/hub-avon/favicon.ico"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --avon:#E91E63;--avon-d:#C2185B;--avon-s:#fce4ec;
+  --pdc:#0A2472;--gold:#F5A623;
+  --bg:#f8f9fc;--white:#fff;
+  --green:#10b981;--green-s:#d1fae5;
+  --yellow:#f59e0b;--yellow-s:#fef3c7;
+  --red:#ef4444;--red-s:#fee2e2;
+  --blue:#3b82f6;--blue-s:#dbeafe;
+  --text:#1e293b;--muted:#94a3b8;--border:#e2e8f0;
+  --r:12px;--sh:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
+
+/* ── LOGIN ── */
+#loginScreen{
+  min-height:100vh;
+  background:linear-gradient(135deg,var(--pdc) 0%,#1a3a6e 40%,var(--avon-d) 100%);
+  display:flex;align-items:center;justify-content:center;padding:20px;
+}
+.login-box{
+  background:var(--white);border-radius:20px;padding:40px 36px;
+  width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.25);
+  text-align:center;
+}
+.login-logos{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:22px}
+.login-logos img{height:38px;object-fit:contain}
+.login-logos .divider{width:1px;height:32px;background:var(--border)}
+.login-title{font-size:20px;font-weight:700;color:var(--pdc);margin-bottom:4px}
+.login-sub{font-size:12px;color:var(--muted);margin-bottom:24px}
+.login-flags{font-size:22px;letter-spacing:2px;margin-bottom:20px}
+.login-field{text-align:left;margin-bottom:14px}
+.login-field label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:5px}
+.login-field input{width:100%;padding:11px 14px;border:2px solid var(--border);border-radius:9px;font-size:14px;font-family:'Poppins',sans-serif;outline:none;transition:border-color .2s}
+.login-field input:focus{border-color:var(--avon)}
+.login-btn{
+  width:100%;padding:13px;background:var(--avon);color:#fff;border:none;
+  border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;
+  font-family:'Poppins',sans-serif;transition:all .2s;margin-top:4px;
+}
+.login-btn:hover{background:var(--avon-d);transform:translateY(-1px);box-shadow:0 4px 16px rgba(233,30,99,.35)}
+.login-err{background:var(--red-s);color:var(--red);padding:10px 14px;border-radius:8px;font-size:13px;margin-top:12px;display:none;font-weight:500}
+
+/* ── APP ── */
+#app{display:none}
+
+/* ── TOPBAR ── */
+.topbar{
+  background:var(--pdc);height:56px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 20px;position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+.topbar-brand{display:flex;align-items:center;gap:12px}
+.topbar-brand img{height:26px;object-fit:contain;filter:brightness(0) invert(1)}
+.topbar-title{color:#fff;font-size:14px;font-weight:600;letter-spacing:.3px}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.notif-bell{
+  position:relative;width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,.1);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+  transition:background .2s;
+}
+.notif-bell:hover{background:rgba(255,255,255,.2)}
+.notif-count{
+  position:absolute;top:-2px;right:-2px;background:var(--avon);color:#fff;
+  font-size:9px;font-weight:700;width:16px;height:16px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  display:none;animation:pulse 1.5s infinite;
+}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.topbar-user{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.1);border-radius:20px;padding:6px 12px 6px 8px;
+}
+.topbar-av{width:26px;height:26px;border-radius:50%;background:var(--avon);
+  color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.topbar-name{color:#fff;font-size:12px;font-weight:500}
+.btn-logout{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  color:#fff;padding:5px 12px;border-radius:7px;cursor:pointer;font-size:12px;
+  font-family:'Poppins',sans-serif;transition:background .2s}
+.btn-logout:hover{background:rgba(255,255,255,.2)}
+
+/* ── NAV TABS ── */
+.nav-tabs{
+  background:var(--white);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 20px;gap:2px;overflow-x:auto;
+}
+.nav-tab{
+  padding:14px 18px;font-size:13px;font-weight:500;color:var(--muted);
+  cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;
+  transition:all .2s;display:flex;align-items:center;gap:6px;
+}
+.nav-tab:hover{color:var(--text)}
+.nav-tab.active{color:var(--avon);border-bottom-color:var(--avon);font-weight:600}
+.nav-badge{
+  background:var(--avon);color:#fff;font-size:10px;font-weight:700;
+  padding:1px 6px;border-radius:10px;
+}
+.nav-badge.y{background:var(--yellow)}
+
+/* ── CONTENT ── */
+.content{max-width:960px;margin:0 auto;padding:24px 20px}
+.view{display:none}.view.active{display:block}
+
+/* ── HERO ── */
+.hero{
+  background:linear-gradient(135deg,var(--pdc) 0%,var(--avon-d) 100%);
+  border-radius:16px;padding:28px 28px;color:#fff;margin-bottom:22px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+}
+.hero-title{font-size:22px;font-weight:800;margin-bottom:4px}
+.hero-sub{font-size:13px;opacity:.85}
+.hero-flags{font-size:24px;letter-spacing:2px;margin-top:8px}
+.hero-btn{
+  background:#fff;color:var(--avon);padding:12px 22px;border-radius:10px;
+  font-weight:700;font-size:14px;cursor:pointer;border:none;
+  font-family:'Poppins',sans-serif;transition:all .2s;white-space:nowrap;
+}
+.hero-btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(255,255,255,.3)}
+
+/* ── STATS ── */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:22px}
+.stat{background:var(--white);border-radius:var(--r);border:1px solid var(--border);padding:16px;
+  display:flex;align-items:center;gap:12px;box-shadow:var(--sh)}
+.stat-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.stat-num{font-size:26px;font-weight:800;line-height:1;margin-bottom:2px}
+.stat-lbl{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+
+/* ── CARDS ── */
+.card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);
+  padding:18px;box-shadow:var(--sh);margin-bottom:16px}
+.card-header{font-size:14px;font-weight:700;color:var(--pdc);margin-bottom:14px;
+  padding-bottom:11px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;gap:10px}
+.card-header .icon{font-size:18px}
+
+/* ── FORM ── */
+.form-section{margin-bottom:22px}
+.section-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;
+  letter-spacing:.8px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.form-full{grid-column:1/-1}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-label{font-size:11px;font-weight:600;color:var(--text);letter-spacing:.2px}
+.form-label .req{color:var(--avon)}
+.form-input,.form-select,.form-textarea{
+  padding:10px 12px;border-radius:8px;border:1.5px solid var(--border);
+  font-size:13px;font-family:'Poppins',sans-serif;color:var(--text);
+  background:var(--white);outline:none;transition:border-color .15s;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{
+  border-color:var(--avon);box-shadow:0 0 0 3px rgba(233,30,99,.08)}
+.form-input.ok{border-color:var(--green);background:var(--green-s)}
+.form-input.err{border-color:var(--red);background:var(--red-s)}
+.form-hint{font-size:11px;color:var(--muted)}
+.form-textarea{resize:vertical;min-height:72px}
+.input-with-prefix{display:flex;align-items:center;gap:6px}
+.currency-badge{font-size:13px;font-weight:600;color:var(--muted);
+  font-family:'Poppins',monospace;min-width:30px}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:9px;
+  font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:'Poppins',sans-serif;
+  transition:all .15s}
+.btn-primary{background:var(--avon);color:#fff}
+.btn-primary:hover{background:var(--avon-d);transform:translateY(-1px);box-shadow:0 4px 12px rgba(233,30,99,.3)}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-secondary{background:var(--white);color:var(--text);border:1.5px solid var(--border)}
+.btn-secondary:hover{background:var(--bg);border-color:var(--muted)}
+.btn-green{background:var(--green);color:#fff}.btn-green:hover{background:#0a9869}
+.btn-red{background:var(--red-s);color:var(--red);border:1px solid #fca5a5}.btn-red:hover{background:#fca5a5}
+.btn-sm{padding:6px 12px;font-size:12px}
+
+/* ── TABLE ── */
+.table-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--pdc);color:#fff;padding:10px 13px;text-align:left;
+  font-size:10px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;white-space:nowrap}
+td{padding:10px 13px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#f8faff}
+.mono{font-family:'Courier New',monospace;font-size:11px}
+
+/* ── PILLS ── */
+.pill{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;
+  border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.pill::before{content:'';width:5px;height:5px;border-radius:50%}
+.pill-pend{background:var(--yellow-s);color:#92400e}.pill-pend::before{background:var(--yellow)}
+.pill-ok{background:var(--green-s);color:#065f46}.pill-ok::before{background:var(--green)}
+.pill-no{background:var(--red-s);color:#991b1b}.pill-no::before{background:var(--red)}
+
+/* ── ALERT ── */
+.alert{display:flex;gap:10px;padding:12px 15px;border-radius:9px;
+  font-size:13px;margin-bottom:14px;align-items:flex-start}
+.alert-icon{font-size:16px;flex-shrink:0}
+.a-warn{background:var(--yellow-s);border:1px solid #fde68a;color:#92400e}
+.a-ok{background:var(--green-s);border:1px solid #6ee7b7;color:#065f46}
+.a-err{background:var(--red-s);border:1px solid #fca5a5;color:#991b1b}
+.a-info{background:var(--blue-s);border:1px solid #bfdbfe;color:#1e40af}
+
+/* ── MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);
+  z-index:200;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--white);border-radius:16px;width:100%;max-width:620px;
+  max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);
+  animation:modalIn .2s ease}
+.modal-lg{max-width:740px}
+@keyframes modalIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-header{padding:18px 22px 14px;border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-start;justify-content:space-between;
+  position:sticky;top:0;background:var(--white);z-index:1}
+.modal-title{font-size:16px;font-weight:700;color:var(--pdc)}
+.modal-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.modal-close{width:30px;height:30px;border-radius:50%;background:var(--bg);
+  border:none;cursor:pointer;font-size:16px;color:var(--muted);
+  display:flex;align-items:center;justify-content:center;transition:background .15s}
+.modal-close:hover{background:var(--red-s);color:var(--red)}
+.modal-body{padding:18px 22px}
+.modal-footer{padding:14px 22px;border-top:1px solid var(--border);
+  display:flex;gap:9px;justify-content:flex-end;position:sticky;bottom:0;background:var(--white)}
+
+/* ── VALIDATIONS ── */
+.val-list{background:var(--bg);border-radius:9px;border:1px solid var(--border);padding:14px}
+.val-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.val-item:last-child{border-bottom:none;padding-bottom:0}
+.val-text{flex:1;font-size:13px}
+.val-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.val-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;
+  flex-shrink:0;margin-top:2px;white-space:nowrap}
+.vb-ok{background:var(--green-s);color:#065f46}
+.vb-fail{background:var(--red-s);color:#991b1b}
+.vb-load{background:var(--blue-s);color:#1e40af}
+
+/* ── STEPS ── */
+.steps-bar{display:flex;align-items:flex-start;margin-bottom:26px;overflow-x:auto;padding-bottom:6px}
+.step-block{display:flex;flex-direction:column;align-items:center}
+.step-circle{width:30px;height:30px;border-radius:50%;border:2px solid var(--border);
+  background:var(--white);display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:var(--muted);flex-shrink:0;transition:all .2s}
+.step-circle.done{background:var(--green);border-color:var(--green);color:#fff}
+.step-circle.active{background:var(--avon);border-color:var(--avon);color:#fff;
+  box-shadow:0 0 0 4px rgba(233,30,99,.15)}
+.step-line{flex:1;height:2px;background:var(--border);margin:0 5px;margin-top:14px}
+.step-line.done{background:var(--green)}
+.step-lbl{font-size:10px;font-weight:600;margin-top:5px;white-space:nowrap;color:var(--muted)}
+
+/* ── NOTIF PANEL ── */
+.notif-panel{
+  position:fixed;right:16px;top:64px;width:320px;background:var(--white);
+  border-radius:14px;border:1px solid var(--border);box-shadow:var(--sh);
+  z-index:150;display:none;animation:modalIn .2s ease;
+  max-height:400px;overflow-y:auto;
+}
+.notif-panel.open{display:block}
+.notif-header{padding:14px 16px 10px;border-bottom:1px solid var(--border);
+  font-size:13px;font-weight:700;color:var(--pdc);display:flex;align-items:center;justify-content:space-between}
+.notif-item{padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
+.notif-item:hover{background:var(--bg)}
+.notif-item:last-child{border-bottom:none}
+.notif-item-title{font-size:13px;font-weight:600;margin-bottom:3px}
+.notif-item-sub{font-size:11px;color:var(--muted)}
+.notif-dot{width:8px;height:8px;border-radius:50%;background:var(--avon);flex-shrink:0;margin-top:4px}
+.notif-empty{padding:20px;text-align:center;color:var(--muted);font-size:13px}
+
+/* ── DETAIL GRID ── */
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 22px}
+.detail-item .dlbl{font-size:10px;font-weight:700;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+.detail-item .dval{font-size:13px;font-weight:500}
+
+/* ── NOTIFICATION CONFIG ── */
+.notif-config-item{display:flex;align-items:center;gap:12px;padding:12px;
+  border:1.5px solid var(--border);border-radius:9px;margin-bottom:10px}
+.notif-config-item .n-icon{font-size:24px;flex-shrink:0}
+.notif-config-item .n-info{flex:1}
+.notif-config-item .n-name{font-size:14px;font-weight:600}
+.notif-config-item .n-sub{font-size:11px;color:var(--muted)}
+.toggle{position:relative;width:42px;height:22px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;inset:0;background:var(--border);border-radius:11px;cursor:pointer;transition:.3s}
+.toggle-slider::before{content:'';position:absolute;width:16px;height:16px;left:3px;bottom:3px;
+  background:#fff;border-radius:50%;transition:.3s}
+.toggle input:checked + .toggle-slider{background:var(--green)}
+.toggle input:checked + .toggle-slider::before{transform:translateX(20px)}
+
+/* ── PDF ── */
+#pdfContent{background:#fff;padding:28px 32px;font-family:Arial,sans-serif;font-size:11px;color:#000}
+
+/* ── MISC ── */
+.spinner{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--avon);
+  border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+@media(max-width:780px){
+  .stats-row{grid-template-columns:1fr 1fr}
+  .form-grid{grid-template-columns:1fr}
+  .detail-grid{grid-template-columns:1fr}
+  .content{padding:16px}
+  .notif-panel{width:calc(100vw - 32px)}
+}
+</style>
+</head>
+<body>
+
+<!-- ════ LOGIN ════ -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logos">
+      <img src="https://grupopdc460.github.io/hub-avon/logo-pdc.png" alt="PDC" onerror="this.style.display='none'"/>
+      <div class="divider"></div>
+      <img src="https://grupopdc460.github.io/hub-avon/Avon-Logo.png" alt="Avon" onerror="this.style.display='none'"/>
+    </div>
+    <div class="login-title">Convenios de Pago</div>
+    <div class="login-sub">Avon CARD · Centroamérica &amp; R. Dominicana</div>
+    <div class="login-flags">🇬🇹🇸🇻🇭🇳🇳🇮🇵🇦🇩🇴</div>
+    <div class="login-field">
+      <label>Usuario</label>
+      <input id="lUser" placeholder="Tu nombre" autocomplete="username"/>
+    </div>
+    <div class="login-field">
+      <label>Contraseña</label>
+      <input id="lPass" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/>
+    </div>
+    <button class="login-btn" onclick="doLogin()">Ingresar →</button>
+    <div id="lErr" class="login-err">⚠️ Contraseña incorrecta</div>
+    <div style="margin-top:16px;font-size:11px;color:#aaa">grupopdc.com · Sistema de Automatización</div>
+  </div>
+</div>
+
+<!-- ════ APP ════ -->
+<div id="app">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-brand">
+      <img src="https://grupopdc460.github.io/hub-avon/logo-pdc.png" alt="PDC"/>
+      <div class="topbar-title">Convenios de Pago — Avon CARD</div>
+    </div>
+    <div class="topbar-right">
+      <!-- Notification Bell -->
+      <button class="notif-bell" id="bellBtn" onclick="toggleNotifPanel()">
+        🔔
+        <span class="notif-count" id="notifCount">0</span>
+      </button>
+      <div class="topbar-user">
+        <div class="topbar-av" id="userAv">GZ</div>
+        <div class="topbar-name" id="userName">Usuario</div>
+      </div>
+      <button class="btn-logout" onclick="doLogout()">Salir</button>
+    </div>
+  </div>
+
+  <!-- NOTIFICATION PANEL -->
+  <div class="notif-panel" id="notifPanel">
+    <div class="notif-header">
+      🔔 Notificaciones
+      <span id="notifClearBtn" onclick="clearNotifs()" style="font-size:11px;color:var(--avon);cursor:pointer;font-weight:400">Limpiar</span>
+    </div>
+    <div id="notifList"><div class="notif-empty">Sin notificaciones nuevas</div></div>
+  </div>
+
+  <!-- NAV TABS -->
+  <div class="nav-tabs">
+    <div class="nav-tab active" onclick="navTo('inicio')" id="t-inicio">🏠 Inicio</div>
+    <div class="nav-tab" onclick="navTo('nueva')" id="t-nueva">➕ Nueva Solicitud</div>
+    <div class="nav-tab" onclick="navTo('pendientes')" id="t-pendientes">
+      ⏳ Pendientes <span class="nav-badge y" id="nb-pend">0</span>
+    </div>
+    <div class="nav-tab" onclick="navTo('historial')" id="t-historial">📋 Historial</div>
+    <div class="nav-tab" onclick="navTo('alertas')" id="t-alertas">🔔 Alertas</div>
+  </div>
+
+  <div class="content">
+
+    <!-- ══ INICIO ══ -->
+    <div class="view active" id="v-inicio">
+      <div class="hero">
+        <div>
+          <div class="hero-title">¡Bienvenida, <span id="heroName">GDR</span>! 👋</div>
+          <div class="hero-sub">Sistema de solicitudes de convenio de pago — Respuesta en 24 horas</div>
+          <div class="hero-flags">🇬🇹🇸🇻🇭🇳🇳🇮🇵🇦🇩🇴</div>
+        </div>
+        <button class="hero-btn" onclick="navTo('nueva')">+ Nueva Solicitud</button>
+      </div>
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-icon" style="background:var(--blue-s)">📨</div>
+          <div><div class="stat-num" id="s-total" style="color:var(--blue)">0</div><div class="stat-lbl">Total</div></div>
+        </div>
+        <div class="stat">
+          <div class="stat-icon" style="background:var(--yellow-s)">⏳</div>
+          <div><div class="stat-num" id="s-pend" style="color:var(--yellow)">0</div><div class="stat-lbl">Pendientes</div></div>
+        </div>
+        <div class="stat">
+          <div class="stat-icon" style="background:var(--green-s)">✅</div>
+          <div><div class="stat-num" id="s-ok" style="color:var(--green)">0</div><div class="stat-lbl">Autorizados</div></div>
+        </div>
+        <div class="stat">
+          <div class="stat-icon" style="background:var(--red-s)">❌</div>
+          <div><div class="stat-num" id="s-no" style="color:var(--red)">0</div><div class="stat-lbl">Rechazados</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span><span class="icon">📋</span> Últimas solicitudes</span>
+          <button class="btn btn-secondary btn-sm" onclick="navTo('historial')">Ver todo →</button>
+        </div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Correlativo</th><th>Representante</th><th>País</th><th>Monto Conv.</th><th>Estado</th><th>GDR</th><th>Fecha</th><th></th></tr></thead>
+          <tbody id="dashTbody"><tr><td colspan="8" style="text-align:center;color:var(--muted);padding:28px">
+            Sin solicitudes. <a href="#" onclick="navTo('nueva')" style="color:var(--avon)">Crear primera →</a>
+          </td></tr></tbody>
+        </table></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span><span class="icon">📌</span> Criterios de elegibilidad</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div style="background:var(--red-s);border-radius:9px;padding:12px;font-size:12px;color:#991b1b">
+            <div style="font-weight:700;margin-bottom:6px">🚫 NO aplican convenios cuando:</div>
+            <ul style="padding-left:16px;line-height:1.9">
+              <li>Productos con extra-financiamientos, VEA o cuotas</li>
+              <li>Menos de 6 campañas activas consecutivas</li>
+              <li>Más de una campaña con pagos pendientes</li>
+              <li>Convenio anterior en menos de 6 campañas</li>
+            </ul>
+          </div>
+          <div style="background:var(--green-s);border-radius:9px;padding:12px;font-size:12px;color:#065f46">
+            <div style="font-weight:700;margin-bottom:6px">✅ Recuerda:</div>
+            <ul style="padding-left:16px;line-height:1.9">
+              <li>La GDR es responsable del seguimiento</li>
+              <li>Respuesta en máximo 24 horas</li>
+              <li>Monto extensión ≤ 40% de la última factura</li>
+              <li>Convenio 40% + Pago 60% = monto total</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ NUEVA SOLICITUD ══ -->
+    <div class="view" id="v-nueva">
+      <div style="margin-bottom:18px">
+        <div style="font-size:20px;font-weight:800;color:var(--pdc)">➕ Nueva Solicitud de Convenio</div>
+        <div style="font-size:13px;color:var(--muted);margin-top:3px">Completa los campos · Respuesta en 24 horas</div>
+      </div>
+
+      <!-- STEPS -->
+      <div class="steps-bar" id="stepsBar">
+        <div class="step-block"><div class="step-circle active" id="sc1">1</div><div class="step-lbl" style="color:var(--avon)">Datos</div></div>
+        <div class="step-line" id="sl1"></div>
+        <div class="step-block"><div class="step-circle" id="sc2">2</div><div class="step-lbl">Validar</div></div>
+        <div class="step-line" id="sl2"></div>
+        <div class="step-block"><div class="step-circle" id="sc3">3</div><div class="step-lbl">Montos</div></div>
+        <div class="step-line" id="sl3"></div>
+        <div class="step-block"><div class="step-circle" id="sc4">4</div><div class="step-lbl">Confirmar</div></div>
+      </div>
+
+      <!-- PASO 1 -->
+      <div id="s1">
+        <div class="card">
+          <div class="card-header"><span>📝 Datos de la Representante</span></div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Correo electrónico GDR <span class="req">*</span></label>
+              <input class="form-input" id="f_email" type="email" placeholder="nombre@grupopdc.com"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Fecha de solicitud <span class="req">*</span></label>
+              <input class="form-input" id="f_fecha" type="date"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">País <span class="req">*</span></label>
+              <select class="form-select" id="f_pais" onchange="updateCurrency()">
+                <option value="">— Seleccionar país —</option>
+                <option value="GT">🇬🇹 Guatemala</option>
+                <option value="SV">🇸🇻 El Salvador</option>
+                <option value="HN">🇭🇳 Honduras</option>
+                <option value="NI">🇳🇮 Nicaragua</option>
+                <option value="PA">🇵🇦 Panamá</option>
+                <option value="DO">🇩🇴 República Dominicana</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Zona <span class="req">*</span></label>
+              <input class="form-input" id="f_zona" type="text" placeholder="ej. 609"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Código de Representante <span class="req">*</span></label>
+              <input class="form-input" id="f_cod" type="text" placeholder="ej. 122455" oninput="resetRepFound()"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nombre de Representante <span class="req">*</span></label>
+              <input class="form-input" id="f_nombre" placeholder="Nombre completo"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">¿Campaña a recibir? <span class="req">*</span></label>
+              <input class="form-input" id="f_camp" placeholder="ej. 4 ó C04"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">¿Motivo del convenio? <span class="req">*</span></label>
+              <select class="form-select" id="f_motivo">
+                <option value="">— Seleccionar —</option>
+                <option>Salud</option>
+                <option>Desempleo</option>
+                <option>Emergencia familiar</option>
+                <option>Pago retrasado de ventas</option>
+              </select>
+            </div>
+            <div class="form-group form-full">
+              <label class="form-label">Nombre de la GDR <span class="req">*</span></label>
+              <input class="form-input" id="f_gdr" placeholder="Nombre completo de la Gerente de Zona"/>
+            </div>
+          </div>
+          <div style="margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <button class="btn btn-secondary" onclick="verificarRep()">🔍 Verificar en sistema</button>
+            <span id="verStatus" style="font-size:12px;color:var(--muted)"></span>
+          </div>
+          <div id="repFound" style="display:none;margin-top:10px"></div>
+        </div>
+        <div style="display:flex;justify-content:flex-end">
+          <button class="btn btn-primary" onclick="irPaso(2)">Continuar →</button>
+        </div>
+      </div>
+
+      <!-- PASO 2 -->
+      <div id="s2" style="display:none">
+        <div class="card">
+          <div class="card-header"><span>✅ Validaciones de Elegibilidad</span></div>
+          <div class="alert a-info"><span class="alert-icon">ℹ️</span>
+            <span style="font-size:12px">Se verifican los 4 criterios de la política de convenios Avon CARD.</span>
+          </div>
+          <div class="val-list">
+            <div class="val-item">
+              <span style="font-size:16px">📅</span>
+              <div class="val-text"><strong>Sin convenio en las últimas 6 campañas</strong>
+                <div class="val-sub">Inhabilitada si hay autorización previa en menos de 6 campañas</div>
+              </div>
+              <span class="val-badge vb-load" id="v1">Verificando…</span>
+            </div>
+            <div class="val-item">
+              <span style="font-size:16px">📊</span>
+              <div class="val-text"><strong>Actividad consecutiva mínima de 6 campañas</strong>
+                <div class="val-sub">La representante debe tener al menos 6 campañas activas</div>
+              </div>
+              <span class="val-badge vb-load" id="v2">Verificando…</span>
+            </div>
+            <div class="val-item">
+              <span style="font-size:16px">💳</span>
+              <div class="val-text"><strong>No más de una campaña con pagos pendientes</strong>
+                <div class="val-sub">Si registra más de una campaña en mora, se niega</div>
+              </div>
+              <span class="val-badge vb-load" id="v3">Verificando…</span>
+            </div>
+            <div class="val-item">
+              <span style="font-size:16px">🚫</span>
+              <div class="val-text"><strong>Sin extra-financiamientos, VEA ni cuotas activas</strong>
+                <div class="val-sub">No aplica sobre saldos con financiamiento extraordinario</div>
+              </div>
+              <span class="val-badge vb-load" id="v4">Verificando…</span>
+            </div>
+          </div>
+          <div id="valResult" style="margin-top:12px"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between">
+          <button class="btn btn-secondary" onclick="irPaso(1)">← Volver</button>
+          <button class="btn btn-primary" id="btnPaso2" disabled onclick="irPaso(3)">Continuar →</button>
+        </div>
+      </div>
+
+      <!-- PASO 3 -->
+      <div id="s3" style="display:none">
+        <div class="card">
+          <div class="card-header"><span>💰 Montos del Convenio</span></div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">¿Monto última campaña? <span class="req">*</span></label>
+              <div class="input-with-prefix">
+                <span class="currency-badge" id="curr1">$</span>
+                <input class="form-input" id="f_monto_ult" type="number" step="0.01" min="0.01" placeholder="0.00" style="flex:1" oninput="recalcMontos()"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">¿Monto de extensión? <span style="font-weight:400;font-size:10px">(máx 40%)</span> <span class="req">*</span></label>
+              <div class="input-with-prefix">
+                <span class="currency-badge" id="curr2">$</span>
+                <input class="form-input" id="f_extension" type="number" step="0.01" min="0" placeholder="0.00" style="flex:1" oninput="recalcMontos()"/>
+              </div>
+              <span class="form-hint" id="ext_hint">Máximo 40% de la última factura</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Monto Convenio (40%)</label>
+              <div class="input-with-prefix">
+                <span class="currency-badge" id="curr3">$</span>
+                <input class="form-input" id="f_monto_conv" readonly placeholder="Auto" style="flex:1;background:var(--bg);color:var(--muted)"/>
+              </div>
+              <span class="form-hint">= Monto última campaña × 0.40</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Monto Pago (60%)</label>
+              <div class="input-with-prefix">
+                <span class="currency-badge" id="curr4">$</span>
+                <input class="form-input" id="f_monto_pago" readonly placeholder="Auto" style="flex:1;background:var(--bg);color:var(--muted)"/>
+              </div>
+              <span class="form-hint">= Monto última campaña × 0.60</span>
+            </div>
+            <div class="form-group form-full">
+              <label class="form-label">Observaciones (opcional)</label>
+              <textarea class="form-textarea" id="f_obs" placeholder="Notas adicionales sobre el caso…"></textarea>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between">
+          <button class="btn btn-secondary" onclick="irPaso(2)">← Volver</button>
+          <button class="btn btn-primary" onclick="irPaso(4)">Revisar →</button>
+        </div>
+      </div>
+
+      <!-- PASO 4 -->
+      <div id="s4" style="display:none">
+        <div class="card">
+          <div class="card-header"><span>👁️ Confirmar Solicitud</span></div>
+          <div id="resumenDiv"></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span>📋 Compromiso de la GDR</span></div>
+          <div class="alert a-warn"><span class="alert-icon">⚠️</span>
+            <span style="font-size:12px">La GDR asume responsabilidad de seguimiento del convenio y de apoyar al equipo de cobros para evitar que la cuenta pase a reserva.</span>
+          </div>
+          <label style="display:flex;gap:9px;align-items:flex-start;cursor:pointer;font-size:13px">
+            <input type="checkbox" id="chkDecl" onchange="document.getElementById('btnEnviar').disabled=!this.checked" style="margin-top:3px;accent-color:var(--avon);width:16px;height:16px"/>
+            <span>Confirmo que la información es correcta y que esta solicitud cumple con los criterios de elegibilidad de Avon CARD.</span>
+          </label>
+        </div>
+        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
+          <button class="btn btn-secondary" onclick="irPaso(3)">← Volver</button>
+          <button class="btn btn-primary" id="btnEnviar" disabled onclick="enviarSolicitud()">📤 Enviar Solicitud</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PENDIENTES ══ -->
+    <div class="view" id="v-pendientes">
+      <div style="margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+        <div>
+          <div style="font-size:20px;font-weight:800;color:var(--pdc)">⏳ Cola de Aprobación</div>
+          <div style="font-size:13px;color:var(--muted)">Solicitudes pendientes de revisión — Supervisor / Analista</div>
+        </div>
+      </div>
+      <div id="pendEmpty" class="alert a-ok"><span class="alert-icon">🎉</span><span>No hay solicitudes pendientes.</span></div>
+      <div id="pendList"></div>
+    </div>
+
+    <!-- ══ HISTORIAL ══ -->
+    <div class="view" id="v-historial">
+      <div style="margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+        <div>
+          <div style="font-size:20px;font-weight:800;color:var(--pdc)">📋 Historial de Solicitudes</div>
+          <div style="font-size:13px;color:var(--muted)">Registro completo con trazabilidad por correlativo</div>
+        </div>
+        <button class="btn btn-secondary btn-sm" onclick="exportarCSV()">⬇️ Exportar CSV</button>
+      </div>
+      <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+        <input class="form-input" style="max-width:260px;flex:1" placeholder="🔍 Buscar por nombre, código, correlativo…" oninput="buscarHist(this.value)"/>
+        <select class="form-select" style="width:auto" onchange="filtrarPais(this.value)">
+          <option value="">Todos los países</option>
+          <option value="GT">🇬🇹 Guatemala</option>
+          <option value="SV">🇸🇻 El Salvador</option>
+          <option value="HN">🇭🇳 Honduras</option>
+          <option value="NI">🇳🇮 Nicaragua</option>
+          <option value="PA">🇵🇦 Panamá</option>
+          <option value="DO">🇩🇴 R. Dominicana</option>
+        </select>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Correlativo</th><th>Representante</th><th>País</th><th>Zona</th><th>Camp.</th><th>Conv. 40%</th><th>Pago 60%</th><th>Estado</th><th>GDR</th><th>Fecha</th><th></th></tr></thead>
+        <tbody id="histTbody"><tr><td colspan="11" style="text-align:center;color:var(--muted);padding:28px">Sin registros</td></tr></tbody>
+      </table></div>
+    </div>
+
+    <!-- ══ ALERTAS / NOTIFICACIONES ══ -->
+    <div class="view" id="v-alertas">
+      <div style="margin-bottom:20px">
+        <div style="font-size:20px;font-weight:800;color:var(--pdc)">🔔 Configuración de Alertas</div>
+        <div style="font-size:13px;color:var(--muted);margin-top:3px">Activa notificaciones para recibir alertas cuando llegue una nueva solicitud</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span>📲 Canales de Notificación</span></div>
+        
+        <!-- WhatsApp -->
+        <div class="notif-config-item">
+          <span class="n-icon">💬</span>
+          <div class="n-info">
+            <div class="n-name">WhatsApp Business (Webhook)</div>
+            <div class="n-sub">Recibe un mensaje en tu número cuando llega una solicitud nueva</div>
+            <div style="margin-top:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <input class="form-input" id="waNumber" placeholder="+50299999999" style="max-width:180px"/>
+              <span style="font-size:11px;color:var(--muted)">Número con código de país</span>
+            </div>
+          </div>
+          <label class="toggle"><input type="checkbox" id="toggleWA" onchange="saveNotifConfig()"/><span class="toggle-slider"></span></label>
+        </div>
+
+        <!-- Microsoft Teams -->
+        <div class="notif-config-item">
+          <span class="n-icon">🟣</span>
+          <div class="n-info">
+            <div class="n-name">Microsoft Teams (Incoming Webhook)</div>
+            <div class="n-sub">Envía una tarjeta al canal de Teams cuando llega una solicitud</div>
+            <div style="margin-top:8px">
+              <input class="form-input" id="teamsWebhook" placeholder="https://grupopdc.webhook.office.com/webhookb2/..." style="width:100%;font-size:11px"/>
+              <div style="font-size:11px;color:var(--muted);margin-top:4px">Teams → Canal → ⋯ → Connectors → Incoming Webhook → Copiar URL</div>
+            </div>
+          </div>
+          <label class="toggle"><input type="checkbox" id="toggleTeams" onchange="saveNotifConfig()"/><span class="toggle-slider"></span></label>
+        </div>
+
+        <!-- Email / Correo -->
+        <div class="notif-config-item">
+          <span class="n-icon">📧</span>
+          <div class="n-info">
+            <div class="n-name">Notificación por correo (EmailJS)</div>
+            <div class="n-sub">Envía un correo automático al equipo de cartera cuando hay nueva solicitud</div>
+            <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+              <input class="form-input" id="emailServiceId" placeholder="service_xxxxx" style="max-width:160px;font-size:11px"/>
+              <input class="form-input" id="emailTemplateId" placeholder="template_xxxxx" style="max-width:160px;font-size:11px"/>
+              <input class="form-input" id="emailPublicKey" placeholder="Public Key" style="max-width:140px;font-size:11px"/>
+            </div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px">Configurar en emailjs.com (plan gratuito disponible)</div>
+          </div>
+          <label class="toggle"><input type="checkbox" id="toggleEmail" onchange="saveNotifConfig()"/><span class="toggle-slider"></span></label>
+        </div>
+
+        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-primary btn-sm" onclick="guardarAlertas()">💾 Guardar configuración</button>
+          <button class="btn btn-secondary btn-sm" onclick="probarNotificacion()">🧪 Probar notificación</button>
+        </div>
+        <div id="alertSaveMsg" style="display:none;margin-top:10px"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span>📖 Cómo configurar Teams paso a paso</span></div>
+        <div style="font-size:13px;line-height:2;color:var(--text)">
+          <ol style="padding-left:18px">
+            <li>Abre el canal de Teams donde quieres recibir las alertas</li>
+            <li>Haz clic en <strong>⋯ (más opciones)</strong> al lado del nombre del canal</li>
+            <li>Selecciona <strong>Connectors</strong> → busca <strong>Incoming Webhook</strong></li>
+            <li>Haz clic en <strong>Configurar</strong>, ponle un nombre (ej. "Convenios Avon")</li>
+            <li>Copia la URL que aparece y pégala arriba en el campo de Teams</li>
+            <li>Activa el toggle y guarda</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span>📋 Log de notificaciones enviadas</span></div>
+        <div id="notifLog" style="font-family:'Courier New',monospace;font-size:11px;background:#0d1117;color:#7ee787;padding:14px;border-radius:8px;min-height:80px;line-height:1.8;white-space:pre-wrap">
+# Esperando notificaciones...</div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /app -->
+
+<!-- MODAL DETALLE / ACCIÓN -->
+<div class="modal-overlay" id="modalAct">
+  <div class="modal">
+    <div class="modal-header">
+      <div><div class="modal-title" id="mTitle">Solicitud</div><div class="modal-sub" id="mSub"></div></div>
+      <button class="modal-close" onclick="closeModal('modalAct')">✕</button>
+    </div>
+    <div class="modal-body" id="mBody"></div>
+    <div class="modal-footer" id="mFoot"></div>
+  </div>
+</div>
+
+<!-- MODAL PDF -->
+<div class="modal-overlay" id="modalPDF">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <div><div class="modal-title">📄 Respuesta PDF</div><div class="modal-sub" id="pdfSubTitle"></div></div>
+      <button class="modal-close" onclick="closeModal('modalPDF')">✕</button>
+    </div>
+    <div class="modal-body"><div id="pdfContent"></div></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modalPDF')">Cerrar</button>
+      <button class="btn btn-primary" onclick="imprimirPDF()">🖨️ Imprimir / PDF</button>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS OVERLAY -->
+<div id="successOv" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:18px;padding:38px 36px;max-width:380px;width:90%;text-align:center;animation:modalIn .3s ease">
+    <div style="font-size:54px;margin-bottom:14px">✅</div>
+    <div style="font-size:20px;font-weight:800;color:var(--pdc);margin-bottom:6px">¡Solicitud Enviada!</div>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:16px">Tu solicitud fue enviada al equipo de cobros. Recibirás respuesta en 24 horas.</div>
+    <div id="sucCorrel" style="font-family:'Courier New',monospace;background:var(--bg);padding:10px 16px;border-radius:9px;margin-bottom:18px;color:var(--avon);font-weight:700;font-size:14px"></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="cerrarExito()">Volver al inicio</button>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// CONSTANTES
+// ══════════════════════════════════════════
+const CURR={GT:'Q.',SV:'$',HN:'L.',NI:'C$.',PA:'B.\\',DO:'RD$'};
+const FLAGS={GT:'🇬🇹',SV:'🇸🇻',HN:'🇭🇳',NI:'🇳🇮',PA:'🇵🇦',DO:'🇩🇴'};
+const PAIS={GT:'Guatemala',SV:'El Salvador',HN:'Honduras',NI:'Nicaragua',PA:'Panamá',DO:'R. Dominicana'};
+
+// Destinatarios de cartera por país (reales)
+const DEST_CARTERA={
+  GT:['jennifer.flores@grupopdc.com'],
+  SV:['morena.zepeda@grupopdc.com','zenia.palma@grupopdc.com'],
+  HN:['mareza.garcia@grupopdc.com','michaelcaballero.preseleccion@grupopdc.com','salomon.pineda@grupopdc.com'],
+  NI:['elizabeth.blandino@grupopdc.com','helen.cruz@grupopdc.com'],
+  PA:['lia.mendoza@grupopdc.com','alma.lloyd@grupopdc.com','julissa.mariscal@grupopdc.com'],
+  DO:[]
+};
+
+// ══ CREDENCIAL UNIVERSAL ══
+const PASS_UNIVERSAL = 'PDC2026';
+
+// ══ ESTADO ══
+const ST={
+  user:null,
+  sols: JSON.parse(localStorage.getItem('avc2_sols')||'[]'),
+  cc: parseInt(localStorage.getItem('avc2_cc')||'0'),
+  notifs: JSON.parse(localStorage.getItem('avc2_notifs')||'[]'),
+  notifCfg: JSON.parse(localStorage.getItem('avc2_ncfg')||'{}'),
+  repData: null,
+  valOk: false,
+  step: 1
+};
+const save=()=>{
+  localStorage.setItem('avc2_sols',JSON.stringify(ST.sols));
+  localStorage.setItem('avc2_cc',ST.cc.toString());
+  localStorage.setItem('avc2_notifs',JSON.stringify(ST.notifs));
+};
+const genCorrel=(zona,cod,camp)=>{
+  ST.cc++;save();
+  const c=String(camp).replace(/\D/g,'').padStart(2,'0');
+  const y=String(new Date().getFullYear()).slice(-2);
+  return `${c}${y}-${zona}-${cod}-${ST.cc}`;
+};
+
+// ══════════════════════════════════════════
+// AUTH — CONTRASEÑA UNIVERSAL
+// ══════════════════════════════════════════
+function doLogin(){
+  const user=document.getElementById('lUser').value.trim();
+  const pass=document.getElementById('lPass').value;
+  if(!user){document.getElementById('lErr').style.display='block';return}
+  if(pass!==PASS_UNIVERSAL){document.getElementById('lErr').style.display='block';return}
+  ST.user={name:user, initials:user.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase()};
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('app').style.display='block';
+  document.getElementById('userAv').textContent=ST.user.initials;
+  document.getElementById('userName').textContent=user;
+  document.getElementById('heroName').textContent=user;
+  cargarNotifConfig();
+  refreshDash();
+  updateBadges();
+}
+function doLogout(){
+  ST.user=null;
+  document.getElementById('app').style.display='none';
+  document.getElementById('loginScreen').style.display='flex';
+  document.getElementById('lUser').value='';
+  document.getElementById('lPass').value='';
+  document.getElementById('lErr').style.display='none';
+}
+
+// ══════════════════════════════════════════
+// NAVEGACIÓN
+// ══════════════════════════════════════════
+function navTo(v){
+  document.querySelectorAll('.view').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(e=>e.classList.remove('active'));
+  const ve=document.getElementById('v-'+v);
+  const te=document.getElementById('t-'+v);
+  if(ve)ve.classList.add('active');
+  if(te)te.classList.add('active');
+  document.getElementById('notifPanel').classList.remove('open');
+  if(v==='inicio')refreshDash();
+  if(v==='historial')renderHist();
+  if(v==='pendientes')renderPendientes();
+  if(v==='alertas')cargarNotifConfig();
+}
+
+// ══════════════════════════════════════════
+// DASHBOARD
+// ══════════════════════════════════════════
+function refreshDash(){
+  const all=ST.sols;
+  const p=all.filter(s=>s.estado==='pending').length;
+  const ok=all.filter(s=>s.estado==='approved').length;
+  const no=all.filter(s=>s.estado==='rejected').length;
+  ['s-total','s-pend','s-ok','s-no'].forEach((id,i)=>{
+    const e=document.getElementById(id);if(e)e.textContent=[all.length,p,ok,no][i];
+  });
+  const tb=document.getElementById('dashTbody');
+  if(!all.length){
+    tb.innerHTML='<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:28px">Sin solicitudes. <a href="#" onclick="navTo(\'nueva\')" style="color:var(--avon)">Crear primera →</a></td></tr>';return;
+  }
+  tb.innerHTML=[...all].reverse().slice(0,7).map(s=>`<tr>
+    <td class="mono">${s.corr}</td>
+    <td><strong>${s.nombre}</strong><br/><span style="font-size:11px;color:var(--muted)">${s.cod}</span></td>
+    <td>${FLAGS[s.pais]||''} ${s.pais}</td>
+    <td class="mono">${fm(s.monto_conv,s.pais)}</td>
+    <td>${pillH(s.estado)}</td>
+    <td style="font-size:12px">${s.gdr}</td>
+    <td style="font-size:11px;color:var(--muted)">${fd(s.fecha)}</td>
+    <td><button class="btn btn-secondary btn-sm" onclick="abrirDetalle('${s.corr}')">Ver</button></td>
+  </tr>`).join('');
+}
+
+// ══════════════════════════════════════════
+// FORMULARIO — PASO A PASO
+// ══════════════════════════════════════════
+function updateCurrency(){
+  const p=document.getElementById('f_pais').value;
+  const c=CURR[p]||'$';
+  ['curr1','curr2','curr3','curr4'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=c});
+}
+function recalcMontos(){
+  const mu=parseFloat(document.getElementById('f_monto_ult').value)||0;
+  const ext=parseFloat(document.getElementById('f_extension').value)||0;
+  const max=(mu*0.4);
+  const hint=document.getElementById('ext_hint');
+  const fi=document.getElementById('f_extension');
+  if(mu>0){
+    if(ext>max){fi.classList.add('err');hint.textContent=`⚠️ Excede máximo de ${max.toFixed(2)} (40% de ${mu.toFixed(2)})`;hint.style.color='var(--red)'}
+    else if(ext>0){fi.classList.remove('err');fi.classList.add('ok');hint.textContent=`✅ OK · Máx: ${max.toFixed(2)}`;hint.style.color='var(--green)'}
+    else{fi.classList.remove('err','ok');hint.textContent=`Máx: ${max.toFixed(2)} (40% de ${mu.toFixed(2)})`;hint.style.color=''}
+    document.getElementById('f_monto_conv').value=(mu*0.4).toFixed(2);
+    document.getElementById('f_monto_pago').value=(mu*0.6).toFixed(2);
+  }
+}
+function resetRepFound(){ST.repData=null;document.getElementById('repFound').style.display='none'}
+function verificarRep(){
+  const cod=document.getElementById('f_cod').value.trim();
+  const pais=document.getElementById('f_pais').value;
+  const nombre=document.getElementById('f_nombre').value.trim();
+  if(!cod||!pais||!nombre){alert('Ingresa País, Código y Nombre primero.');return}
+  const st=document.getElementById('verStatus');
+  st.innerHTML='<span class="spinner"></span> Consultando…';
+  setTimeout(()=>{
+    // En demo: acepta cualquier combinación válida
+    ST.repData={cod,pais,nombre,campActivas:7,conveniosPrev:0,moraCampanas:0,extras:false};
+    document.getElementById('repFound').style.display='block';
+    document.getElementById('repFound').innerHTML=`<div class="alert a-ok"><span class="alert-icon">✅</span><strong>Representante registrada</strong> · Sistema listo para validar.</div>`;
+    st.innerHTML='<span style="color:var(--green)">✅ Verificada</span>';
+  },800);
+}
+function irPaso(n){
+  if(n===2){
+    const campos=['f_email','f_fecha','f_pais','f_zona','f_cod','f_nombre','f_camp','f_motivo','f_gdr'];
+    const vacios=campos.filter(id=>!document.getElementById(id).value.trim());
+    if(vacios.length){alert('Por favor completa todos los campos obligatorios.');return}
+  }
+  if(n===4){
+    const mu=parseFloat(document.getElementById('f_monto_ult').value)||0;
+    const ext=parseFloat(document.getElementById('f_extension').value)||0;
+    if(!mu||!ext){alert('Ingresa los montos del convenio.');return}
+    if(ext>mu*0.4){alert('El monto de extensión no puede superar el 40% de la última campaña.');return}
+  }
+  if(n===4) renderResumen();
+  ST.step=n;
+  [1,2,3,4].forEach(i=>{
+    const s=document.getElementById('s'+i);if(s)s.style.display=i===n?'block':'none';
+    const sc=document.getElementById('sc'+i);
+    sc.classList.remove('done','active');
+    if(i<n){sc.classList.add('done');sc.textContent='✓'}
+    else if(i===n)sc.classList.add('active');
+    const sl=document.getElementById('sl'+i);
+    if(sl)sl.style.background=i<n?'var(--green)':'var(--border)';
+  });
+  if(n===2)correrValidaciones();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function correrValidaciones(){
+  ST.valOk=false;document.getElementById('btnPaso2').disabled=true;document.getElementById('valResult').innerHTML='';
+  ['v1','v2','v3','v4'].forEach(id=>{const e=document.getElementById(id);e.className='val-badge vb-load';e.textContent='Verificando…'});
+  const d=ST.repData||{campActivas:6,conveniosPrev:0,moraCampanas:0,extras:false};
+  const res=[d.conveniosPrev===0,d.campActivas>=6,d.moraCampanas<=1,!d.extras];
+  const fails=['Tiene convenio en las últimas 6 campañas','No cumple facturación mínima de 6 campañas','Más de una campaña con pagos pendientes','Tiene extra-financiamiento o VEA activo'];
+  ['v1','v2','v3','v4'].forEach((id,i)=>{
+    setTimeout(()=>{
+      const e=document.getElementById(id);
+      e.className='val-badge '+(res[i]?'vb-ok':'vb-fail');
+      e.textContent=res[i]?'✓ Cumple':'✗ '+fails[i];
+      if(i===3){
+        const ok=res.every(Boolean);ST.valOk=ok;
+        document.getElementById('valResult').innerHTML=ok
+          ?'<div class="alert a-ok"><span class="alert-icon">🎉</span><strong>Todas las validaciones pasaron. Representante elegible.</strong></div>'
+          :'<div class="alert a-err"><span class="alert-icon">🚫</span><strong>No aplica convenio.</strong> Revisa los criterios marcados en rojo.</div>';
+        document.getElementById('btnPaso2').disabled=!ok;
+      }
+    },450*(i+1));
+  });
+}
+function renderResumen(){
+  const f=id=>document.getElementById(id)?.value||'—';
+  const p=f('f_pais');
+  document.getElementById('resumenDiv').innerHTML=`
+    <div class="detail-grid">
+      <div class="detail-item"><div class="dlbl">Correo GDR</div><div class="dval" style="font-size:12px">${f('f_email')}</div></div>
+      <div class="detail-item"><div class="dlbl">Fecha solicitud</div><div class="dval">${f('f_fecha')}</div></div>
+      <div class="detail-item"><div class="dlbl">País</div><div class="dval">${FLAGS[p]||''} ${PAIS[p]||p}</div></div>
+      <div class="detail-item"><div class="dlbl">Zona</div><div class="dval">${f('f_zona')}</div></div>
+      <div class="detail-item"><div class="dlbl">Código Rep.</div><div class="dval mono">${f('f_cod')}</div></div>
+      <div class="detail-item"><div class="dlbl">Nombre Rep.</div><div class="dval">${f('f_nombre')}</div></div>
+      <div class="detail-item"><div class="dlbl">Campaña</div><div class="dval">${f('f_camp')}</div></div>
+      <div class="detail-item"><div class="dlbl">Motivo</div><div class="dval">${f('f_motivo')}</div></div>
+      <div class="detail-item"><div class="dlbl">Monto última camp.</div><div class="dval mono">${fm(parseFloat(f('f_monto_ult'))||0,p)}</div></div>
+      <div class="detail-item"><div class="dlbl">Extensión</div><div class="dval mono">${fm(parseFloat(f('f_extension'))||0,p)}</div></div>
+      <div class="detail-item"><div class="dlbl">Monto Convenio 40%</div><div class="dval mono" style="color:var(--avon);font-weight:700;font-size:15px">${fm(parseFloat(f('f_monto_conv'))||0,p)}</div></div>
+      <div class="detail-item"><div class="dlbl">Monto Pago 60%</div><div class="dval mono">${fm(parseFloat(f('f_monto_pago'))||0,p)}</div></div>
+      <div class="detail-item"><div class="dlbl">GDR</div><div class="dval">${f('f_gdr')}</div></div>
+      <div class="detail-item"><div class="dlbl">Enviado por</div><div class="dval">${ST.user?.name||'—'}</div></div>
+    </div>`;
+}
+
+// ══════════════════════════════════════════
+// ENVIAR SOLICITUD
+// ══════════════════════════════════════════
+function enviarSolicitud(){
+  const f=id=>document.getElementById(id)?.value||'';
+  const pais=f('f_pais'), zona=f('f_zona'), cod=f('f_cod'), camp=f('f_camp');
+  const corr=genCorrel(zona,cod,camp);
+  const sol={
+    corr, pais, zona, cod, nombre:f('f_nombre'), camp,
+    email_gdr:f('f_email'), gdr:f('f_gdr'), fecha_sol:f('f_fecha'),
+    monto_ult:parseFloat(f('f_monto_ult'))||0,
+    extension:parseFloat(f('f_extension'))||0,
+    monto_conv:parseFloat(f('f_monto_conv'))||0,
+    monto_pago:parseFloat(f('f_monto_pago'))||0,
+    motivo:f('f_motivo'), obs:f('f_obs'),
+    usuario:ST.user?.name||'?',
+    fecha:new Date().toISOString(),
+    estado:'pending',
+    supervisor:'', comentarios:'', sha:null, fecha_resp:null
+  };
+  ST.sols.push(sol);
+  // Agregar notificación interna
+  agregarNotif(`📨 Nueva solicitud de ${sol.nombre}`, `${FLAGS[sol.pais]||''} ${PAIS[sol.pais]||sol.pais} · ${sol.gdr} · ${corr}`, corr);
+  save();updateBadges();
+  // Disparar notificaciones externas
+  enviarNotificaciones(sol);
+  document.getElementById('sucCorrel').textContent='Correlativo: '+corr;
+  document.getElementById('successOv').style.display='flex';
+  resetFormulario();
+}
+function cerrarExito(){document.getElementById('successOv').style.display='none';navTo('inicio')}
+function resetFormulario(){
+  ['f_email','f_fecha','f_zona','f_cod','f_nombre','f_camp','f_monto_ult','f_extension','f_monto_conv','f_monto_pago','f_obs','f_gdr'].forEach(id=>{const e=document.getElementById(id);if(e)e.value=''});
+  document.getElementById('f_pais').value='';document.getElementById('f_motivo').value='';
+  document.getElementById('repFound').style.display='none';
+  document.getElementById('chkDecl').checked=false;
+  document.getElementById('btnEnviar').disabled=true;
+  ST.repData=null;ST.valOk=false;irPaso(1);
+}
+
+// ══════════════════════════════════════════
+// PENDIENTES
+// ══════════════════════════════════════════
+function renderPendientes(){
+  const pends=ST.sols.filter(s=>s.estado==='pending');
+  document.getElementById('pendEmpty').style.display=pends.length?'none':'flex';
+  if(!pends.length){document.getElementById('pendList').innerHTML='';return}
+  document.getElementById('pendList').innerHTML=[...pends].reverse().map(s=>`
+    <div class="card" style="border-left:4px solid var(--yellow)">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:12px">
+        <div>
+          <div style="font-size:15px;font-weight:700">${s.nombre}</div>
+          <div style="font-size:12px;color:var(--muted)">Cod: ${s.cod} · Zona ${s.zona} · ${FLAGS[s.pais]||''} ${PAIS[s.pais]||s.pais} · Campaña ${s.camp}</div>
+          <div style="font-size:11px;color:var(--muted)">GDR: ${s.gdr} · ${s.email_gdr}</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px">Correlativo: <span class="mono">${s.corr}</span></div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:19px;font-weight:800;color:var(--avon)">${fm(s.monto_conv,s.pais)}</div>
+          <div style="font-size:11px;color:var(--muted)">Convenio 40% · Pago: ${fm(s.monto_pago,s.pais)}</div>
+        </div>
+      </div>
+      <div style="font-size:12px;background:var(--bg);padding:9px 12px;border-radius:8px;margin-bottom:10px">
+        <strong>Motivo:</strong> ${s.motivo} · <strong>Ult. campaña:</strong> ${fm(s.monto_ult,s.pais)} · <strong>Extensión:</strong> ${fm(s.extension,s.pais)}
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-green btn-sm" onclick="accionarPendiente('${s.corr}','approve')">✅ Autorizar</button>
+        <button class="btn btn-red btn-sm" onclick="accionarPendiente('${s.corr}','reject')">❌ Rechazar</button>
+        <button class="btn btn-secondary btn-sm" onclick="abrirDetalle('${s.corr}')">Ver detalle</button>
+      </div>
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════════
+// APROBAR / RECHAZAR
+// ══════════════════════════════════════════
+let _actCorr='',_actAction='';
+function accionarPendiente(corr,action){
+  _actCorr=corr;_actAction=action;
+  const s=ST.sols.find(x=>x.corr===corr);if(!s)return;
+  const isA=action==='approve';
+  document.getElementById('mTitle').textContent=isA?'✅ Autorizar Convenio':'❌ Rechazar Solicitud';
+  document.getElementById('mSub').textContent=`${s.corr} · ${s.nombre} · ${FLAGS[s.pais]||''} ${PAIS[s.pais]||s.pais}`;
+  document.getElementById('mBody').innerHTML=`
+    <div class="detail-grid" style="margin-bottom:14px">
+      <div class="detail-item"><div class="dlbl">Representante</div><div class="dval">${s.nombre}</div></div>
+      <div class="detail-item"><div class="dlbl">Código / Zona</div><div class="dval mono">${s.cod} / ${s.zona}</div></div>
+      <div class="detail-item"><div class="dlbl">Monto Convenio 40%</div><div class="dval mono" style="color:var(--avon);font-weight:700">${fm(s.monto_conv,s.pais)}</div></div>
+      <div class="detail-item"><div class="dlbl">Monto Pago 60%</div><div class="dval mono">${fm(s.monto_pago,s.pais)}</div></div>
+      <div class="detail-item"><div class="dlbl">GDR</div><div class="dval">${s.gdr}</div></div>
+      <div class="detail-item"><div class="dlbl">Email GDR</div><div class="dval" style="font-size:12px">${s.email_gdr}</div></div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">${isA?'Comentarios de aprobación':'Motivo del rechazo'} <span class="req">*</span></label>
+      <textarea class="form-textarea" id="actComent" placeholder="${isA?'Convenio autorizado…':'Ej: No cumple facturación mínima de 6 campañas…'}"></textarea>
+    </div>
+    <div class="alert ${isA?'a-info':'a-warn'}" style="margin-top:10px">
+      <span class="alert-icon">${isA?'📧':'📧'}</span>
+      <span style="font-size:11px">${isA
+        ?`PDF → <strong>${s.email_gdr}</strong> + copia equipo cartera: ${(DEST_CARTERA[s.pais]||[]).join(', ')||'—'}`
+        :`PDF solo → <strong>${s.email_gdr}</strong>`
+      }</span>
+    </div>`;
+  document.getElementById('mFoot').innerHTML=`
+    <button class="btn btn-secondary" onclick="closeModal('modalAct')">Cancelar</button>
+    <button class="${isA?'btn btn-green':'btn btn-red'}" onclick="confirmarAccion()">${isA?'✅ Confirmar':'❌ Rechazar'}</button>`;
+  document.getElementById('modalAct').classList.add('open');
+}
+function confirmarAccion(){
+  const s=ST.sols.find(x=>x.corr===_actCorr);if(!s)return;
+  const coment=document.getElementById('actComent')?.value.trim();
+  if(!coment){alert('Ingresa comentarios o motivo.');return}
+  const isA=_actAction==='approve';
+  s.estado=isA?'approved':'rejected';
+  s.comentarios=coment;
+  s.supervisor=ST.user?.name||'Supervisor';
+  s.fecha_resp=new Date().toISOString();
+  if(isA)s.sha=fakeSHA();
+  save();updateBadges();closeModal('modalAct');
+  refreshDash();renderPendientes();
+  // Notificación de respuesta
+  agregarNotif(
+    isA?`✅ Autorizado: ${s.nombre}`:`❌ Rechazado: ${s.nombre}`,
+    `${s.corr} · ${s.supervisor}`,
+    s.corr
+  );
+  setTimeout(()=>{if(confirm(`${isA?'✅':'❌'} ${_actCorr}\n\n¿Ver PDF de respuesta?`))verPDF(_actCorr)},200);
+}
+
+// ══════════════════════════════════════════
+// HISTORIAL
+// ══════════════════════════════════════════
+let _hfq='',_hfp='';
+function renderHist(){
+  let items=[...ST.sols].reverse();
+  if(_hfq)items=items.filter(s=>s.nombre.toLowerCase().includes(_hfq.toLowerCase())||s.cod.includes(_hfq)||s.corr.toLowerCase().includes(_hfq.toLowerCase())||s.gdr.toLowerCase().includes(_hfq.toLowerCase()));
+  if(_hfp)items=items.filter(s=>s.pais===_hfp);
+  const tb=document.getElementById('histTbody');
+  if(!items.length){tb.innerHTML='<tr><td colspan="11" style="text-align:center;color:var(--muted);padding:28px">Sin registros</td></tr>';return}
+  tb.innerHTML=items.map(s=>`<tr>
+    <td class="mono" style="font-size:10px">${s.corr}</td>
+    <td style="font-size:12px"><strong>${s.nombre}</strong><br/><span style="color:var(--muted);font-size:10px">${s.cod}</span></td>
+    <td>${FLAGS[s.pais]||''} ${s.pais}</td>
+    <td>${s.zona}</td>
+    <td>${s.camp}</td>
+    <td class="mono" style="color:var(--avon);font-weight:600">${fm(s.monto_conv,s.pais)}</td>
+    <td class="mono">${fm(s.monto_pago,s.pais)}</td>
+    <td>${pillH(s.estado)}</td>
+    <td style="font-size:11px">${s.gdr}</td>
+    <td style="font-size:11px;color:var(--muted)">${fd(s.fecha)}</td>
+    <td style="white-space:nowrap">
+      <button class="btn btn-secondary btn-sm" onclick="abrirDetalle('${s.corr}')">Ver</button>
+      ${s.estado!=='pending'?`<button class="btn btn-secondary btn-sm" style="margin-left:3px" onclick="verPDF('${s.corr}')">PDF</button>`:''}
+    </td>
+  </tr>`).join('');
+}
+function buscarHist(v){_hfq=v;renderHist()}
+function filtrarPais(v){_hfp=v;renderHist()}
+function exportarCSV(){
+  const h=['Correlativo','Nombre','Codigo','Pais','Zona','Campana','Moto_Ult','Extension','Conv_40','Pago_60','Motivo','GDR','Email_GDR','Estado','Comentarios','Supervisor','Fecha'];
+  const rows=ST.sols.map(s=>[s.corr,s.nombre,s.cod,s.pais,s.zona,s.camp,s.monto_ult,s.extension,s.monto_conv,s.monto_pago,s.motivo,s.gdr,s.email_gdr,s.estado,s.comentarios||'',s.supervisor||'',s.fecha]);
+  const csv=[h,...rows].map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);a.download='convenios_avon.csv';a.click();
+}
+
+// ══════════════════════════════════════════
+// DETALLE MODAL
+// ══════════════════════════════════════════
+function abrirDetalle(corr){
+  const s=ST.sols.find(x=>x.corr===corr);if(!s)return;
+  document.getElementById('mTitle').textContent='Detalle Solicitud';
+  document.getElementById('mSub').textContent=`${corr} · ${FLAGS[s.pais]||''} ${PAIS[s.pais]||s.pais} · ${fd(s.fecha)}`;
+  document.getElementById('mBody').innerHTML=`
+    <div class="detail-grid" style="margin-bottom:14px">
+      <div class="detail-item"><div class="dlbl">Correlativo</div><div class="dval mono" style="color:var(--avon)">${s.corr}</div></div>
+      <div class="detail-item"><div class="dlbl">Estado</div><div class="dval">${pillH(s.estado)}</div></div>
+      <div class="detail-item"><div class="dlbl">Representante</div><div class="dval">${s.nombre}</div></div>
+      <div class="detail-item"><div class="dlbl">Código</div><div class="dval mono">${s.cod}</div></div>
+      <div class="detail-item"><div class="dlbl">País / Zona</div><div class="dval">${FLAGS[s.pais]||''} ${PAIS[s.pais]||s.pais} / ${s.zona}</div></div>
+      <div class="detail-item"><div class="dlbl">Campaña</div><div class="dval">${s.camp}</div></div>
+      <div class="detail-item"><div class="dlbl">Conv. 40%</div><div class="dval mono" style="color:var(--avon);font-weight:700">${fm(s.monto_conv,s.pais)}</div></div>
+      <div class="detail-item"><div class="dlbl">Pago 60%</div><div class="dval mono">${fm(s.monto_pago,s.pais)}</div></div>
+      <div class="detail-item"><div class="dlbl">GDR</div><div class="dval">${s.gdr}</div></div>
+      <div class="detail-item"><div class="dlbl">Email GDR</div><div class="dval" style="font-size:12px">${s.email_gdr}</div></div>
+    </div>
+    <div style="background:var(--bg);padding:10px 12px;border-radius:8px;font-size:12px;margin-bottom:12px">
+      <strong>Motivo:</strong> ${s.motivo}${s.obs?` · <strong>Obs:</strong> ${s.obs}`:''}
+    </div>
+    ${s.comentarios?`<div class="alert a-info"><span class="alert-icon">👤</span><strong>${s.supervisor}:</strong> ${s.comentarios}</div>`:''}
+    ${s.sha?`<div class="alert a-ok"><span class="alert-icon">🔗</span>Registrado en GitHub: <span class="mono">${s.sha.slice(0,10)}…</span></div>`:''}`;
+  document.getElementById('mFoot').innerHTML=`
+    <button class="btn btn-secondary" onclick="closeModal('modalAct')">Cerrar</button>
+    ${s.estado!=='pending'?`<button class="btn btn-primary btn-sm" onclick="closeModal('modalAct');verPDF('${corr}')">📄 Ver PDF</button>`:''}
+    ${s.estado==='pending'?`<button class="btn btn-green btn-sm" onclick="closeModal('modalAct');accionarPendiente('${corr}','approve')">✅ Autorizar</button><button class="btn btn-red btn-sm" onclick="closeModal('modalAct');accionarPendiente('${corr}','reject')">❌ Rechazar</button>`:''}`;
+  document.getElementById('modalAct').classList.add('open');
+}
+
+// ══════════════════════════════════════════
+// PDF — FORMATO OFICIAL
+// ══════════════════════════════════════════
+let _pCorr='';
+function verPDF(corr){
+  const s=ST.sols.find(x=>x.corr===corr);if(!s)return;
+  _pCorr=corr;
+  const isA=s.estado==='approved';
+  document.getElementById('pdfSubTitle').textContent=`${corr} · ${s.nombre} · ${FLAGS[s.pais]||''} ${PAIS[s.pais]||s.pais}`;
+  document.getElementById('pdfContent').innerHTML=`
+    <div style="font-family:Arial,sans-serif;font-size:11px;color:#000">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;padding-bottom:13px;border-bottom:2px solid #0A2472">
+        <div>
+          <div style="font-size:26px;font-weight:900;color:#E91E63;letter-spacing:-1px">A</div>
+          <div style="font-size:10px;color:#555;margin-top:1px">Avon CARD — Centroamérica &amp; R. Dominicana</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:14px;font-weight:700;color:#0A2472">Respuesta Convenio / ${s.pais} ${s.cod}</div>
+          <div style="font-size:10px;color:#555">Correlativo: <strong>${corr}</strong></div>
+          <div style="font-size:10px;color:#555">Fecha: ${fd(s.fecha_resp||new Date().toISOString())}</div>
+        </div>
+      </div>
+      <div style="background:#f0f4f8;padding:9px 13px;border-radius:4px;margin-bottom:14px;display:flex;gap:24px;flex-wrap:wrap">
+        <div><div style="font-size:9px;text-transform:uppercase;font-weight:700;color:#666;letter-spacing:.5px">País</div><div style="font-size:11px;font-weight:600;color:#0A2472">${FLAGS[s.pais]||''} ${PAIS[s.pais]||s.pais}</div></div>
+        <div><div style="font-size:9px;text-transform:uppercase;font-weight:700;color:#666;letter-spacing:.5px">Asunto</div><div style="font-size:11px;font-weight:600;color:#0A2472">Respuesta Convenio — ${s.pais} ${s.cod}</div></div>
+        <div><div style="font-size:9px;text-transform:uppercase;font-weight:700;color:#666;letter-spacing:.5px">Estado</div><div style="font-size:11px;font-weight:700;color:${isA?'#065f46':'#991b1b'}">${isA?'✅ AUTORIZADO':'❌ RECHAZADO'}</div></div>
+      </div>
+      <p style="margin-bottom:12px">Estimado(a) <strong>${s.gdr}</strong>,</p>
+      <p style="margin-bottom:12px">Se han <strong>${isA?'autorizado':'rechazado'}</strong> los siguientes convenios:</p>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:13px">
+        <thead><tr><th style="background:#0A2472;color:#fff;padding:6px 9px;font-size:9px;text-align:left;font-weight:600">Campo</th><th style="background:#0A2472;color:#fff;padding:6px 9px;font-size:9px;text-align:left;font-weight:600">Información</th></tr></thead>
+        <tbody>
+          ${[
+            ['Fecha solicitud convenio', s.fecha_sol||'—'],
+            ['Zona', s.zona],
+            ['Código de Representante', s.cod],
+            ['Nombre de Representante', s.nombre],
+            ['¿Campaña a recibir?', s.camp],
+            ['¿Monto última campaña?', fm(s.monto_ult,s.pais)],
+            ['¿Monto de extensión?', fm(s.extension,s.pais)],
+            ['¿Motivo de convenio?', s.motivo],
+            ['Comentarios', s.comentarios||s.obs||'—'],
+            ['Monto Autorizado', isA?fm(s.monto_conv,s.pais):'—'],
+            ['Monto Pago 60%', isA?fm(s.monto_pago,s.pais):'—'],
+          ].map(([k,v])=>`<tr><td style="padding:5px 9px;border-bottom:1px solid #e0e0e0;font-size:10px"><strong>${k}</strong></td><td style="padding:5px 9px;border-bottom:1px solid #e0e0e0;font-size:10px">${v}</td></tr>`).join('')}
+          <tr style="background:${isA?'#e0f7ef':'#fee2e2'}"><td style="padding:5px 9px;font-size:10px"><strong>Correlativo</strong></td><td style="padding:5px 9px;font-size:10px"><strong>${corr}</strong></td></tr>
+          <tr style="background:${isA?'#e0f7ef':'#fee2e2'}"><td style="padding:5px 9px;font-size:10px"><strong>Estatus</strong></td><td style="padding:5px 9px;font-size:10px"><span style="background:${isA?'#065f46':'#991b1b'};color:#fff;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700">${isA?'Autorizado':'Rechazado'}</span></td></tr>
+        </tbody>
+      </table>
+      ${isA?`<div style="background:#fffbeb;border:1px solid #fde68a;padding:9px 12px;border-radius:4px;font-size:10px;color:#92400e;margin-bottom:13px"><strong>Nota:</strong> La GDR <strong>${s.gdr}</strong> es responsable de dar seguimiento a este convenio y apoyar al departamento de cobros para recuperar el pago.</div>`:''}
+      <div style="border-top:1px solid #e0e0e0;padding-top:10px;display:flex;justify-content:space-between;font-size:9px;color:#555">
+        <div>Saludos,<br/><strong>Equipo de Cobros — Avon CARD · grupopdc.com</strong></div>
+        <div style="text-align:right">Generado: ${new Date().toLocaleString('es-GT')}<br/>SHA: <span style="font-family:monospace">${s.sha||'—'}</span></div>
+      </div>
+    </div>`;
+  document.getElementById('modalPDF').classList.add('open');
+}
+function imprimirPDF(){
+  const content=document.getElementById('pdfContent').innerHTML;
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"/><title>Respuesta ${_pCorr}</title><style>body{margin:28px 32px}</style></head><body>${content}<script>window.print();setTimeout(()=>window.close(),600)<\/script></body></html>`);
+  w.document.close();
+}
+
+// ══════════════════════════════════════════
+// NOTIFICACIONES INTERNAS
+// ══════════════════════════════════════════
+function agregarNotif(titulo,sub,corr){
+  ST.notifs.unshift({titulo,sub,corr,leida:false,fecha:new Date().toISOString()});
+  if(ST.notifs.length>50)ST.notifs.pop();
+  save();renderNotifPanel();updateBell();
+}
+function renderNotifPanel(){
+  const list=document.getElementById('notifList');
+  const unread=ST.notifs.filter(n=>!n.leida);
+  if(!ST.notifs.length){list.innerHTML='<div class="notif-empty">Sin notificaciones</div>';return}
+  list.innerHTML=ST.notifs.slice(0,20).map((n,i)=>`
+    <div class="notif-item" onclick="marcarLeida(${i},'${n.corr||''}')" style="${n.leida?'opacity:.6':''}">
+      <div style="display:flex;gap:9px;align-items:flex-start">
+        ${!n.leida?'<span class="notif-dot" style="margin-top:4px"></span>':'<span style="width:8px"></span>'}
+        <div>
+          <div class="notif-item-title">${n.titulo}</div>
+          <div class="notif-item-sub">${n.sub} · ${fd(n.fecha)}</div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function marcarLeida(i,corr){
+  if(ST.notifs[i])ST.notifs[i].leida=true;
+  save();renderNotifPanel();updateBell();
+  if(corr){closeNotifPanel();abrirDetalle(corr)}
+}
+function clearNotifs(){ST.notifs=[];save();renderNotifPanel();updateBell()}
+function updateBell(){
+  const unread=ST.notifs.filter(n=>!n.leida).length;
+  const cnt=document.getElementById('notifCount');
+  cnt.textContent=unread;
+  cnt.style.display=unread>0?'flex':'none';
+}
+function toggleNotifPanel(){
+  const p=document.getElementById('notifPanel');
+  p.classList.toggle('open');
+  if(p.classList.contains('open'))renderNotifPanel();
+}
+function closeNotifPanel(){document.getElementById('notifPanel').classList.remove('open')}
+document.addEventListener('click',e=>{
+  const panel=document.getElementById('notifPanel');
+  const bell=document.getElementById('bellBtn');
+  if(panel&&!panel.contains(e.target)&&bell&&!bell.contains(e.target))closeNotifPanel();
+});
+
+// ══════════════════════════════════════════
+// NOTIFICACIONES EXTERNAS (Teams / WhatsApp)
+// ══════════════════════════════════════════
+function cargarNotifConfig(){
+  const cfg=ST.notifCfg;
+  const setField=(id,val)=>{const e=document.getElementById(id);if(e&&val!==undefined)e.value=val||''};
+  const setChk=(id,val)=>{const e=document.getElementById(id);if(e)e.checked=!!val};
+  setField('waNumber',cfg.waNumber);setChk('toggleWA',cfg.waEnabled);
+  setField('teamsWebhook',cfg.teamsWebhook);setChk('toggleTeams',cfg.teamsEnabled);
+  setField('emailServiceId',cfg.emailServiceId);setField('emailTemplateId',cfg.emailTemplateId);
+  setField('emailPublicKey',cfg.emailPublicKey);setChk('toggleEmail',cfg.emailEnabled);
+}
+function saveNotifConfig(){
+  const g=id=>document.getElementById(id);
+  ST.notifCfg={
+    waNumber:g('waNumber')?.value||'',waEnabled:g('toggleWA')?.checked||false,
+    teamsWebhook:g('teamsWebhook')?.value||'',teamsEnabled:g('toggleTeams')?.checked||false,
+    emailServiceId:g('emailServiceId')?.value||'',emailTemplateId:g('emailTemplateId')?.value||'',
+    emailPublicKey:g('emailPublicKey')?.value||'',emailEnabled:g('toggleEmail')?.checked||false,
+  };
+  localStorage.setItem('avc2_ncfg',JSON.stringify(ST.notifCfg));
+}
+function guardarAlertas(){
+  saveNotifConfig();
+  const msg=document.getElementById('alertSaveMsg');
+  msg.className='alert a-ok';msg.innerHTML='<span>✅</span> Configuración guardada correctamente.';
+  msg.style.display='flex';setTimeout(()=>msg.style.display='none',3000);
+}
+function logNotif(txt){
+  const log=document.getElementById('notifLog');
+  if(log){log.textContent+='\n'+new Date().toLocaleTimeString()+' — '+txt;log.scrollTop=log.scrollHeight}
+}
+async function enviarNotificaciones(sol){
+  const cfg=ST.notifCfg;
+  const msg=`📨 Nueva solicitud Avon CARD\n📋 Correlativo: ${sol.corr}\n👤 Representante: ${sol.nombre}\n🌎 País: ${FLAGS[sol.pais]||''} ${PAIS[sol.pais]||sol.pais} · Zona ${sol.zona}\n💰 Monto Convenio 40%: ${fm(sol.monto_conv,sol.pais)}\n👩 GDR: ${sol.gdr}\n📅 Fecha: ${fd(sol.fecha)}\n\n⏳ Pendiente de revisión — grupopdc.com/convenios`;
+  // Teams Webhook
+  if(cfg.teamsEnabled&&cfg.teamsWebhook){
+    try{
+      await fetch(cfg.teamsWebhook,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+        '@type':'MessageCard','@context':'http://schema.org/extensions',
+        themeColor:'E91E63',summary:'Nueva solicitud Avon CARD',
+        sections:[{activityTitle:'📨 Nueva Solicitud de Convenio',activitySubtitle:`${sol.nombre} · ${PAIS[sol.pais]||sol.pais}`,
+          facts:[
+            {name:'Correlativo',value:sol.corr},{name:'Representante',value:sol.nombre},
+            {name:'País / Zona',value:`${PAIS[sol.pais]||sol.pais} / ${sol.zona}`},
+            {name:'Monto Convenio',value:fm(sol.monto_conv,sol.pais)},{name:'GDR',value:sol.gdr}
+          ]
+        }]
+      })});
+      logNotif('✅ Teams: notificación enviada → '+cfg.teamsWebhook.slice(0,40)+'…');
+    }catch(e){logNotif('❌ Teams error: '+e.message)}
+  }
+  // WhatsApp — via wa.me link (abre ventana con mensaje pre-escrito)
+  if(cfg.waEnabled&&cfg.waNumber){
+    const num=cfg.waNumber.replace(/\D/g,'');
+    const url=`https://wa.me/${num}?text=${encodeURIComponent(msg)}`;
+    logNotif('📲 WhatsApp: link generado → '+num);
+    // Abre en nueva pestaña con el mensaje listo para enviar
+    setTimeout(()=>window.open(url,'_blank'),500);
+  }
+}
+async function probarNotificacion(){
+  const testSol={corr:'TEST-2025',nombre:'Representante Demo',pais:'GT',zona:'999',
+    monto_conv:50,monto_pago:75,gdr:'GDR Demo',fecha:new Date().toISOString()};
+  saveNotifConfig();
+  logNotif('🧪 Enviando notificación de prueba…');
+  await enviarNotificaciones(testSol);
+  logNotif('✅ Prueba completada');
+}
+
+// ══════════════════════════════════════════
+// BADGES Y HELPERS
+// ══════════════════════════════════════════
+function updateBadges(){
+  const p=ST.sols.filter(s=>s.estado==='pending').length;
+  const e=document.getElementById('nb-pend');if(e)e.textContent=p;
+  updateBell();
+}
+function pillH(e){
+  const m={pending:'pill-pend',approved:'pill-ok',rejected:'pill-no'};
+  const l={pending:'Pendiente',approved:'Autorizado',rejected:'Rechazado'};
+  return `<span class="pill ${m[e]||'pill-pend'}">${l[e]||e}</span>`;
+}
+function fm(n,pais){
+  if(isNaN(n)||n===undefined)return'—';
+  return(CURR[pais]||'$')+' '+parseFloat(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+}
+function fd(iso){
+  if(!iso)return'—';
+  try{return new Date(iso).toLocaleDateString('es-GT',{day:'2-digit',month:'short',year:'numeric'})}catch(e){return iso}
+}
+function fakeSHA(){return Array.from({length:40},()=>'0123456789abcdef'[Math.floor(Math.random()*16)]).join('')}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+document.getElementById('modalAct').addEventListener('click',function(e){if(e.target===this)closeModal('modalAct')});
+document.getElementById('modalPDF').addEventListener('click',function(e){if(e.target===this)closeModal('modalPDF')});
+// Set today as default date
+document.getElementById('f_fecha').value=new Date().toISOString().slice(0,10);
+</script>
+</body>
+</html>
