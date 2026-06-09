@@ -16,6 +16,16 @@
     "obs": "2",
     "usuario": "DANIEL MONGE",
     "fecha": "2026-06-09T13:59:14.512Z",
-    "estado": "pending"
+    "estado": "approved",
+    "criterios": {
+      "c1": "ok",
+      "c2": "ok",
+      "c3": "ok",
+      "c4": "ok"
+    },
+    "comentarios": "Cumple",
+    "supervisor": "DANIEL MONGE",
+    "fecha_resp": "2026-06-09T14:00:40.176Z",
+    "sha": "3b5db0b0"
   }
 ]
