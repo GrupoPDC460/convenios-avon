@@ -29,35 +29,6 @@
     "sha": "8d270fc8"
   },
   {
-    "corr": "0726-777-4545-2",
-    "pais": "PA",
-    "zona": "777",
-    "cod": "4545",
-    "nombre": "DADA",
-    "camp": "7",
-    "motivo": "Salud",
-    "email_gdr": "DDD",
-    "gdr": "DDDDD",
-    "monto_ult": 600,
-    "extension": 67,
-    "monto_conv": 67,
-    "monto_pago": 360,
-    "obs": "DADA",
-    "usuario": "PDC2026",
-    "fecha": "2026-06-09T14:12:30.013Z",
-    "estado": "approved",
-    "criterios": {
-      "c1": "ok",
-      "c2": "ok",
-      "c3": "ok",
-      "c4": "ok"
-    },
-    "comentarios": "Autorizado",
-    "supervisor": "PDC2026",
-    "fecha_resp": "2026-06-09T14:13:44.765Z",
-    "sha": "dd70f7b4"
-  },
-  {
     "corr": "0426-144-2324234-4",
     "pais": "GT",
     "zona": "144",
