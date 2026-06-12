@@ -103,7 +103,17 @@
     "obs": "No cumple LOA pero es alta productora",
     "usuario": "Oliver Santos",
     "fecha": "2026-06-12T15:59:32.853Z",
-    "estado": "pending"
+    "estado": "approved",
+    "criterios": {
+      "c1": "ok",
+      "c2": "ok",
+      "c3": "ok",
+      "c4": "ok"
+    },
+    "comentarios": "Convenio autorizado",
+    "supervisor": "Sarai Azusena Ticas Garcia",
+    "fecha_resp": "2026-06-12T16:05:42.632Z",
+    "sha": "404e53d7"
   },
   {
     "corr": "0626-201-657179-5",
