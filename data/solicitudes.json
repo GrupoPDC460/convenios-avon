@@ -85,5 +85,24 @@
     "supervisor": "Astrid Paola Vasquez Orellana",
     "fecha_resp": "2026-06-12T02:54:40.749Z",
     "sha": "e186a7cc"
+  },
+  {
+    "corr": "1026-201-29115-4",
+    "pais": "SV",
+    "zona": "201",
+    "cod": "29115",
+    "nombre": "JUANA DOLORES RAMOS  DE BARRERA",
+    "camp": "10",
+    "motivo": "Salud",
+    "email_gdr": "oliver.santos@grupopdc.com",
+    "gdr": "Oliver Santos",
+    "monto_ult": 1693.81,
+    "extension": 677.52,
+    "monto_conv": 677.52,
+    "monto_pago": 1016.29,
+    "obs": "No cumple LOA pero es alta productora",
+    "usuario": "Oliver Santos",
+    "fecha": "2026-06-12T15:59:32.853Z",
+    "estado": "pending"
   }
 ]
