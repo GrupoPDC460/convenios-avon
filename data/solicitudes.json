@@ -104,5 +104,24 @@
     "usuario": "Oliver Santos",
     "fecha": "2026-06-12T15:59:32.853Z",
     "estado": "pending"
+  },
+  {
+    "corr": "0626-201-657179-5",
+    "pais": "SV",
+    "zona": "201",
+    "cod": "657179",
+    "nombre": "BERTA LYDIA TORRES  DE GARCIA",
+    "camp": "06",
+    "motivo": "Desempleo",
+    "email_gdr": "oliver.santos@grupopdc.com",
+    "gdr": "Oliver Santos",
+    "monto_ult": 631.42,
+    "extension": 252.56,
+    "monto_conv": 252.56,
+    "monto_pago": 378.85999999999996,
+    "obs": "",
+    "usuario": "Oliver Santos",
+    "fecha": "2026-06-12T16:03:16.841Z",
+    "estado": "pending"
   }
 ]
