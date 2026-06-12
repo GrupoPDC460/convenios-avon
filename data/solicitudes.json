@@ -74,6 +74,16 @@
     "obs": ".",
     "usuario": "Mirna Hernandez",
     "fecha": "2026-06-12T02:53:04.872Z",
-    "estado": "pending"
+    "estado": "approved",
+    "criterios": {
+      "c1": "ok",
+      "c2": "ok",
+      "c3": "ok",
+      "c4": "ok"
+    },
+    "comentarios": "Aprobado ",
+    "supervisor": "Astrid Paola Vasquez Orellana",
+    "fecha_resp": "2026-06-12T02:54:40.749Z",
+    "sha": "e186a7cc"
   }
 ]
