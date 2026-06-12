@@ -29,35 +29,6 @@
     "sha": "8d270fc8"
   },
   {
-    "corr": "0426-144-2324234-4",
-    "pais": "GT",
-    "zona": "144",
-    "cod": "2324234",
-    "nombre": "DADADA",
-    "camp": "4",
-    "motivo": "Salud",
-    "email_gdr": "daniellopez.proyeccion@grupopdc.com",
-    "gdr": "DANIEL",
-    "monto_ult": 6666,
-    "extension": 87.99,
-    "monto_conv": 87.99,
-    "monto_pago": 3999.6,
-    "obs": "JHJJ",
-    "usuario": "DANIEL",
-    "fecha": "2026-06-09T14:51:37.693Z",
-    "estado": "approved",
-    "criterios": {
-      "c1": "ok",
-      "c2": "ok",
-      "c3": "ok",
-      "c4": "ok"
-    },
-    "comentarios": "OMOMO",
-    "supervisor": "DANIEL",
-    "fecha_resp": "2026-06-09T14:52:39.720Z",
-    "sha": "722f7762"
-  },
-  {
     "corr": "0926-616-190691-5",
     "pais": "PA",
     "zona": "616",
