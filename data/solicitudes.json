@@ -132,7 +132,17 @@
     "obs": "",
     "usuario": "Oliver Santos",
     "fecha": "2026-06-12T16:03:16.841Z",
-    "estado": "pending"
+    "estado": "approved",
+    "criterios": {
+      "c1": "ok",
+      "c2": "ok",
+      "c3": "ok",
+      "c4": "ok"
+    },
+    "comentarios": "COVENIO AUTORIZADO",
+    "supervisor": "Heidi Adelaida Morales Salguero",
+    "fecha_resp": "2026-06-18T23:52:16.159Z",
+    "sha": "d41bd014"
   },
   {
     "corr": "0926-114-123123-6",
